@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Aesthavenly</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --dark-brown: #512515;
+            --light-beige: #F5DEB3;
+            --button-brown: #bb8953;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: url('images/bg/LOG\ IN\ &\ SIGN\ UP.png') center/cover no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .auth-box {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo-container img {
+            width: 80px;
+            margin-bottom: 1rem;
+        }
+
+        .logo-container h2 {
+            color: #512515;
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-btn {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            transition: all 0.3s ease;
+            background: white;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .social-btn:hover {
+            background-color: var(--button-brown);
+            color: white;
+            border-color: var(--button-brown);
+        }
+
+        .social-btn i {
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover i {
+            color: white;
+        }
+
+        .social-btn.email-btn {
+            background-color: white;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .social-btn.email-btn i {
+            color: #333;
+        }
+
+        .social-btn.email-btn:hover {
+            background-color: var(--button-brown);
+            color: white;
+            border-color: var(--button-brown);
+        }
+
+        .social-btn.email-btn:hover i {
+            color: white;
+        }
+
+        .social-btn.loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .social-btn.loading i,
+        .social-btn.loading span {
+            opacity: 0;
+        }
+
+        .social-btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateX(200%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            color: #333;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: var(--light-beige);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .form-group input[type="password"] {
+            padding-right: 45px;
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 0;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toggle-password i {
+            font-size: 18px;
+        }
+
+        .toggle-password:hover {
+            color: var(--button-brown);
+        }
+
+        .signup-btn {
+            background-color: var(--dark-brown);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .signup-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .login-text {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .login-text a {
+            color: var(--dark-brown);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-text a:hover {
+            text-decoration: underline;
+        }
+
+        .form-group.error input {
+            border: 2px solid #ff3333;
+        }
+
+        .error-message {
+            color: #ff3333;
+            font-size: 14px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-box">
+        <div class="logo-container">
+            <img src="logo.png" alt="Aesthavenly Logo">
+            <h2>Sign up to Aesthavenly</h2>
+        </div>
+        <div class="social-login">
+            <button class="social-btn email-btn">
+                <i class="fas fa-envelope"></i>
+                <span>Continue with email</span>
+            </button>
+            <button class="social-btn">
+                <i class="fab fa-google"></i>
+                <span>Continue with Google</span>
+            </button>
+            <button class="social-btn">
+                <i class="fab fa-facebook-f"></i>
+                <span>Continue with Facebook</span>
+            </button>
+        </div>
+        <p class="login-text">
+            Already have an account? <a href="login.html">Log In</a>
+        </p>
+    </div>
+
+    <div class="auth-box">
+        <form class="signup-form">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="example@gmail.com" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="password-container">
+                    <input type="password" id="password" required>
+                    <button type="button" class="toggle-password">
+                        <i class="far fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <div class="password-container">
+                    <input type="password" id="confirm-password" required>
+                    <button type="button" class="toggle-password">
+                        <i class="far fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+            <button type="submit" class="signup-btn">Sign up</button>
+        </form>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script>
+        // Password visibility toggle
+        document.querySelectorAll('.toggle-password').forEach(button => {
+            button.addEventListener('click', function() {
+                const input = this.parentElement.querySelector('input');
+                const icon = this.querySelector('i');
+                
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+        });
+
+        // Form validation
+        const form = document.querySelector('.signup-form');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirm-password');
+        
+        function validatePasswords() {
+            const passwordValue = password.value;
+            const confirmValue = confirmPassword.value;
+            
+            if (passwordValue !== confirmValue) {
+                confirmPassword.parentElement.parentElement.classList.add('error');
+                confirmPassword.parentElement.parentElement.querySelector('.error-message').style.display = 'block';
+                return false;
+            }
+            
+            confirmPassword.parentElement.parentElement.classList.remove('error');
+            confirmPassword.parentElement.parentElement.querySelector('.error-message').style.display = 'none';
+            return true;
+        }
+
+        // Add error message element after confirm password input
+        const errorMessage = document.createElement('div');
+        errorMessage.className = 'error-message';
+        errorMessage.textContent = 'Passwords do not match';
+        confirmPassword.parentElement.parentElement.appendChild(errorMessage);
+
+        confirmPassword.addEventListener('input', validatePasswords);
+        
+        form.addEventListener('submit', function(e) {
+            if (!validatePasswords()) {
+                e.preventDefault();
+            }
+        });
+
+        // Simulated Social Login
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function simulateLogin(button, service) {
+            button.classList.add('loading');
+            
+            setTimeout(() => {
+                button.classList.remove('loading');
+                showNotification(`Successfully signed in with ${service}!`);
+                
+                // Redirect after showing notification
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            }, 1500);
+        }
+
+        // Add click handlers to social buttons
+        const googleBtn = document.querySelector('.social-btn:nth-child(2)');
+        const facebookBtn = document.querySelector('.social-btn:nth-child(3)');
+
+        googleBtn.addEventListener('click', function() {
+            simulateLogin(this, 'Google');
+        });
+
+        facebookBtn.addEventListener('click', function() {
+            simulateLogin(this, 'Facebook');
+        });
+    </script>
+
+    <!-- Add Google Sign-In API -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    
+    <!-- Add Facebook SDK -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+</body>
+</html> 

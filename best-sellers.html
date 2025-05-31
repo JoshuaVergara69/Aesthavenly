@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Best Sellers - Aesthavenly</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* Copy all the styles from shop.html */
+    :root {
+      --main-bg: #ffe5bb;
+      --nav-bg: #bb8953;
+      --dark-brown: #512515;
+      --white: #ffffff;
+      --black: #000000;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f1d2a9;
+      margin: 0;
+      padding: 0;
+    }
+
+    .hero-section {
+      height: 500px;
+      position: relative;
+      overflow: hidden;
+      background-image: url('images/bg/BEST SELLERS HEADER.png');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: white;
+    }
+
+    .hero-title {
+      font-size: 5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      text-transform: lowercase;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      background: #d39863;
+      border-radius: 20px;
+      padding: 1.5rem;
+      text-align: center;
+      color: white;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 300px;
+      object-fit: contain;
+      border-radius: 10px;
+      background-color: white;
+      padding: 1rem;
+    }
+
+    .product-card h3 {
+      margin: 1rem 0;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .product-card .price {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin: 0.5rem 0;
+    }
+
+    .button-icon-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 1rem;
+    }
+
+    .icon-circle {
+      width: 45px;
+      height: 45px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .icon-circle i {
+      color: #bb8953;
+      font-size: 20px;
+    }
+
+    .buy-btn {
+      flex: 1;
+      background: #512515;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .buy-btn:hover {
+      background: #3a1b0f;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Copy the header and navigation from shop.html -->
+<!-- Hero Section -->
+<div class="hero-section">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-title">best sellers</h1>
+  </div>
+</div>
+
+<!-- Best Sellers Grid -->
+<div class="product-grid">
+  <!-- Best selling products will be loaded here -->
+</div>
+
+<script>
+// Define your best selling products
+const bestSellers = [
+  {
+    image: 'images/products/home/STERLING RECLINER SOFA.png',
+    name: 'STERLING RECLINER SOFA',
+    price: '₱45,999.00',
+    description: 'Luxurious Recliner Sofa with Premium Fabric',
+    category: 'living-room'
+  },
+  {
+    image: 'images/products/home/BENJEN BED.png',
+    name: 'BENJEN QUEEN BED',
+    price: '₱28,999.00',
+    description: 'Contemporary Queen Size Bed',
+    category: 'bedroom'
+  },
+  {
+    image: 'images/products/home/DAWN DINING SET.png',
+    name: 'DAWN DINING SET',
+    price: '₱32,999.00',
+    description: 'Modern 6-Seater Dining Set',
+    category: 'dining-room'
+  },
+  {
+    image: 'images/products/home/TRINITY COFFEE TABLE.png',
+    name: 'TRINITY COFFEE TABLE',
+    price: '₱12,999.00',
+    description: 'Elegant Coffee Table with Storage',
+    category: 'living-room'
+  },
+  {
+    image: 'images/products/home/TILLY STUDY DESK.png',
+    name: 'TILLY STUDY DESK',
+    price: '₱36,999.00',
+    description: 'Modern Study Desk with Storage',
+    category: 'office'
+  },
+  {
+    image: 'images/products/home/DORRY ROUND DINING SET (BLACK).png',
+    name: 'DORRY ROUND DINING',
+    price: '₱62,999.00',
+    description: 'Round Dining Set in Black',
+    category: 'dining-room'
+  }
+];
+
+function createProductCard(product) {
+  return `
+    <div class="product-card">
+      <img src="${product.image}" alt="${product.name}">
+      <h3>${product.name}</h3>
+      <p class="description">${product.description}</p>
+      <p class="price">${product.price}</p>
+      <div class="stars">★★★★★</div>
+      <div class="button-icon-row">
+        <div class="icon-circle heart-icon" data-product="${product.name}">
+          <i class="fas fa-heart"></i>
+        </div>
+        <button class="buy-btn">BUY NOW!</button>
+        <div class="icon-circle cart-icon" data-product="${JSON.stringify(product).replace(/"/g, '&quot;')}">
+          <i class="fas fa-shopping-cart"></i>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// Load best sellers when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+  const productGrid = document.querySelector('.product-grid');
+  bestSellers.forEach(product => {
+    productGrid.innerHTML += createProductCard(product);
+  });
+});
+</script>
+
+</body>
+</html> 
